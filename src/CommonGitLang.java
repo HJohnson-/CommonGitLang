@@ -1,6 +1,8 @@
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class CommonGitLang extends JSONAnalyzer {
@@ -40,7 +42,39 @@ public class CommonGitLang extends JSONAnalyzer {
      */
     @Override
     protected String analyseJSONArray(JSONArray jArr) {
-        return null;
+
+        if(! (jArr.length() > 0)) {
+            System.out.println("No repos found for that user.");
+            return null;
+        }
+
+        Map<String, Integer> langFrequency = new HashMap<String, Integer>();
+        int highestOccurrences = 0;
+        String mostCommonLang = null;
+
+        for(int repNum = 0; repNum < jArr.length(); repNum++) {
+            JSONObject gitRepo = jArr.getJSONObject(repNum);
+            String language;
+            if(!gitRepo.isNull("language")) {
+                language = gitRepo.getString("language");
+                if(language == null || language.equals("")) continue;
+                Integer newFreq = noNull(langFrequency.get(language))+1;
+                langFrequency.put(language,newFreq);
+                if(newFreq > highestOccurrences) {
+                    highestOccurrences = newFreq;
+                    mostCommonLang = language;
+                }
+            }
+        }
+        if(mostCommonLang == null) {
+            System.out.println("No repos for that user had a language identified");
+        }
+
+        return mostCommonLang;
+    }
+
+    private Integer noNull(Integer integer) {
+        return integer != null ? integer : 0;
     }
 
     /**
