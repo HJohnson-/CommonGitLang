@@ -12,8 +12,10 @@ public class CommonGitLang extends JSONAnalyzer {
         switch(args.length) {
             case 0:
                 //ask user for a name
+                System.out.println("Please give a git username to search for:");
                 Scanner user_input = new Scanner( System.in );
                 gitName = user_input.next( );
+                System.out.println("Name accepted...");
                 break;
             case 1:
                 gitName = args[0];
