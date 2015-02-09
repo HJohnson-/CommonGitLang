@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="CommonGitLang:jar">
+    <output-path>$PROJECT_DIR$/CommonGitLang.jar</output-path>
+    <root id="archive" name="CommonGitLang.jar">
+      <element id="module-output" name="CommonGitLang" />
+    </root>
+  </artifact>
+</component>
